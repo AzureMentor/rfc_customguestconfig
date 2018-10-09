@@ -4,8 +4,8 @@ pool:
 
 steps:
 - powershell: |
-  write-host 'hello, world'
+    write-host 'hello, world'
   displayName: 'Hello world'
 
 - powershell: |
-  Get-ChildItem
+    Get-ChildItem
