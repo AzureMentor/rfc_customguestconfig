@@ -1,0 +1,11 @@
+
+pool:
+  vmImage: 'Windows Server 1803'
+
+steps:
+- powershell: |
+  write-host 'hello, world'
+  displayName: 'Hello world'
+
+- powershell: |
+  Get-ChildItem
