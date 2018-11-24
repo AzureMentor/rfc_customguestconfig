@@ -22,7 +22,7 @@
         "osDiskName": "os",
         "diskType": "Standard_LRS",
         "nicName": "nic0",
-        "ipConfigName": "ipConfig0",
+        "ipConfigName": "ipConfig",
         "addressPrefix": "10.0.0.0/24",
         "subnetName": "subnet0",
         "subnetPrefix": "10.0.0.0/24",
