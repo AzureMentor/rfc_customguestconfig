@@ -35,7 +35,7 @@
     "resources": [
         {
             "type": "Microsoft.Authorization/policyDefinitions",
-            "apiVersion": "2018-03-01",
+            "apiVersion": "2018-05-01",
             "name": "[variables('definitionName0')]",
             "properties": {
                 "displayName": "[CCD_CustomGuestConfig] Deploy extension to audit password file permissions",
