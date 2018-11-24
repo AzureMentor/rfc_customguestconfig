@@ -4,12 +4,13 @@ resources:
     image: 'azuresdk/azure-powershell-core'
 
 pool: 'Hosted Ubuntu 1604'
-container: 'azure-powershell-core'
+# container: 'azure-powershell-core'
 
 steps:
 - task: AzureResourceGroupDeployment@2
   inputs:
     azureSubscription: 'ARM'
+    type: 'Incremental'
     resourceGroupName: 'contosodev-ccd_customguestconfig'
     templateLocation: 'URL of the file'
     csmFileLink: 'https://raw.githubusercontent.com/Microsoft/ccd_customguestconfig/master/deploy.json'
