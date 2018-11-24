@@ -36,7 +36,7 @@
         {
             "type": "Microsoft.Authorization/policyDefinitions",
             "apiVersion": "2018-03-01",
-            "name": "variables('definitionName0')",
+            "name": "[variables('definitionName0')]",
             "properties": {
                 "displayName": "[CCD_CustomGuestConfig] Deploy extension to audit password file permissions",
                 "description": "This definition will deploy the guest configuration extension, setup MSI, and assign the Guest Configuration",
