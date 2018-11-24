@@ -14,4 +14,4 @@ steps:
     location: 'eastus2'
     csmFile: deploy.json
     csmParametersFile: deploy.parameters.json
-    overrideParameters: '-adminUsername "$(adminUsername)" -adminPassword "$(adminPassword)"'
+    overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(adminPassword)'
