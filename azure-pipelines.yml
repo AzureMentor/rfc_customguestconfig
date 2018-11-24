@@ -14,7 +14,7 @@ steps:
       param($path)
       $definition = (Get-Content $path | ConvertFrom-Json -AsHashtable).Values
       New-AzureRMPolicyDefinition @definition -verbose
-    scriptArguments: '$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json'
+    scriptArguments: '-path $(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json'
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
   inputs:
