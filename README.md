@@ -2,7 +2,7 @@
 
 [![Build Status](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/status/Microsoft.ccd_customguestconfig)](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_build/latest?definitionId=1)
 
-This is a theoretical example of a temple
+This is a theoretical example of a template
 for deploying custom guest configurations on Azure.
 
 ## Credit to community examples

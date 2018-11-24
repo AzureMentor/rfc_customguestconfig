@@ -106,9 +106,6 @@
                                         },
                                         "location": {
                                             "value": "[variables('vmLocation')]"
-                                        },
-                                        "configurationName": {
-                                            "value": "PasswordPolicy_msid121"
                                         }
                                     },
                                     "template": {
@@ -120,20 +117,23 @@
                                             },
                                             "location": {
                                                 "type": "string"
-                                            },
-                                            "configurationName": {
-                                                "type": "string"
                                             }
+                                        },
+                                        "variables": {
+                                            "configurationName": "PasswordPolicy_msid121",
+                                            "singleQuote": "'",
+                                            "vmNameParameter": "[concat('[parameters(', variables('singleQuote') ,'vmName', variables('singleQuote'), ')]')]",
+                                            "locationParameter": "[concat('[parameters(', variables('singleQuote') ,'location', variables('singleQuote'), ')]')]"
                                         },
                                         "resources": [
                                             {
                                                 "apiVersion": "2018-06-30-preview",
                                                 "type": "Microsoft.Compute/virtualMachines/providers/guestConfigurationAssignments",
-                                                "name": "[concat(parameters('vmName'), '/Microsoft.GuestConfiguration/', parameters('configurationName'))]",
-                                                "location": "[parameters('location')]",
+                                                "name": "[concat(variables('vmNameParameter'), '/Microsoft.GuestConfiguration/', variables('configurationName'))]",
+                                                "location": "[variables('locationParameter')]",
                                                 "properties": {
                                                     "guestConfiguration": {
-                                                        "name": "[parameters('configurationName')]",
+                                                        "name": "[variables('configurationName')]",
                                                         "version": "1.*"
                                                     }
                                                 }
@@ -144,14 +144,14 @@
                                                 "identity": {
                                                     "type": "SystemAssigned"
                                                 },
-                                                "name": "[parameters('vmName')]",
-                                                "location": "[parameters('location')]"
+                                                "name": "[variables('vmNameParameter')]",
+                                                "location": "[variables('locationParameter')]"
                                             },
                                             {
                                                 "apiVersion": "2015-05-01-preview",
-                                                "name": "[concat(parameters('vmName'), '/AzurePolicyforLinux')]",
+                                                "name": "[concat(variables('vmNameParameter'), '/AzurePolicyforLinux')]",
                                                 "type": "Microsoft.Compute/virtualMachines/extensions",
-                                                "location": "[parameters('location')]",
+                                                "location": "[variables('locationParameter')]",
                                                 "properties": {
                                                     "publisher": "Microsoft.GuestConfiguration",
                                                     "type": "ConfigurationforLinux",
@@ -159,7 +159,7 @@
                                                     "autoUpgradeMinorVersion": true
                                                 },
                                                 "dependsOn": [
-                                                    "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',parameters('configurationName'))]"
+                                                    "[concat('Microsoft.Compute/virtualMachines/',variables('vmNameParameter'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',parameters('configurationName'))]"
                                                 ]
                                             }
                                         ]
