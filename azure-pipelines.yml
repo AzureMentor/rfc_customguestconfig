@@ -1,13 +1,13 @@
-resources:
-  containers:
-  - container: 'azure-powershell-core'
-    image: 'azuresdk/azure-powershell-core'
+#resources:
+#  containers:
+#  - container: 'azure-powershell-core'
+#    image: 'azuresdk/azure-powershell-core'
+# container: 'azure-powershell-core'
 
 variables:
 - group: vmusers
 
 pool: 'Hosted Ubuntu 1604'
-# container: 'azure-powershell-core'
 
 steps:
 - task: AzureResourceGroupDeployment@2
