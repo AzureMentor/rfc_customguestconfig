@@ -19,7 +19,7 @@
         "imagePublisher": "Canonical",
         "imageOffer": "16.04.0-LTS",
         "imageSKU": "7.5",
-        "osDiskName": "os",
+        "osDiskName": "osDisk",
         "diskType": "Standard_LRS",
         "nicName": "nic0",
         "ipConfigName": "ipConfig",
@@ -100,7 +100,7 @@
                         "version": "latest"
                     },
                     "osDisk": {
-                        "name": "variables('osDiskName",
+                        "name": "[variables('osDiskName')]",
                         "caching": "ReadWrite",
                         "createOption": "FromImage",
                         "managedDisk": {
