@@ -30,7 +30,10 @@
         "vmSize": "Standard_DS3_V2",
         "virtualNetworkName": "vnet0",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
-        "definitionName0": "852a2bc9-9a15-446e-a19b-d5b29e60a52a"
+        "definitionName0": "852a2bc9-9a15-446e-a19b-d5b29e60a52a",
+        "singleQuote": "'",
+        "vmName": "[concat('[field(', variables('singleQuote') ,'name', variables('singleQuote'), ')]')]",
+        "vmLocation": "[concat('[field(', variables('singleQuote') ,'location', variables('singleQuote'), ')]')]"
     },
     "resources": [
         {
@@ -45,7 +48,6 @@
                 "metadata": {
                     "category": "Guest Configuration"
                 },
-                "parameters": {},
                 "policyRule": {
                     "if": {
                         "allOf": [
@@ -92,15 +94,18 @@
                         "details": {
                             "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
                             "name": "PasswordPolicy_msid121",
+                            "roleDefinitionIds": [
+                                "/providers/Microsoft.Authorization/roleDefinitions/73a6dbe1-ac3a-4b95-a5c4-0a10dd17559b"
+                            ],
                             "deployment": {
                                 "properties": {
                                     "mode": "incremental",
                                     "parameters": {
                                         "vmName": {
-                                            "value": "[field('name')]"
+                                            "value": "[variables('vmName')]"
                                         },
                                         "location": {
-                                            "value": "[field('location')]"
+                                            "value": "[variables('vmLocation')]"
                                         },
                                         "configurationName": {
                                             "value": "PasswordPolicy_msid121"

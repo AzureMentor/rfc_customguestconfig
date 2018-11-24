@@ -1,7 +1,19 @@
+# Custom Guest Configuration Customer Collaborated Design
 
 [![Build Status](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/status/Microsoft.ccd_customguestconfig)](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_build/latest?definitionId=1)
 
-# Contributing
+This is a theoretical example of a temple
+for deploying custom guest configurations on Azure.
+
+## Credit to community examples
+
+Thank you Stanislav Zhelyazkov for the 
+[blog post example](https://cloudadministrator.net/2018/07/17/defining-input-parameters-for-policy-definitions-in-arm-template/)
+with a creative workaround to capture functions as a variable,
+including the single quote as a unique variable.
+
+
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
