@@ -11,10 +11,9 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      param(`$path)
-      $definition = (Get-Content `$path | ConvertFrom-Json -AsHashtable).Values
+      $definition = (Get-Content $($args[0]) | ConvertFrom-Json -AsHashtable).Values
       New-AzureRMPolicyDefinition @definition -verbose
-    scriptArguments: '-path $(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json'
+    scriptArguments: '$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json'
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
   inputs:
