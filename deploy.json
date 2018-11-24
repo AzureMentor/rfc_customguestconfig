@@ -29,9 +29,146 @@
         "vmName": "centos",
         "vmSize": "Standard_DS3_V2",
         "virtualNetworkName": "vnet0",
-        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
+        "definitionName0": "852a2bc9-9a15-446e-a19b-d5b29e60a52a"
     },
     "resources": [
+        {
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "apiVersion": "2018-03-01",
+            "name": "variables('definitionName0')",
+            "properties": {
+                "displayName": "[CCD_CustomGuestConfig] Deploy extension to audit password file permissions",
+                "description": "This definition will deploy the guest configuration extension, setup MSI, and assign the Guest Configuration",
+                "policyType": "Custom",
+                "mode": "Indexed",
+                "metadata": {
+                    "category": "Guest Configuration"
+                },
+                "parameters": {},
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Compute/virtualMachines"
+                            },
+                            {
+                                "anyOf": [
+                                    {
+                                        "allOf": [
+                                            {
+                                                "field": "Microsoft.Compute/imagePublisher",
+                                                "equals": "Canonical"
+                                            },
+                                            {
+                                                "field": "Microsoft.Compute/imageOffer",
+                                                "equals": "UbuntuServer"
+                                            },
+                                            {
+                                                "anyOf": [
+                                                    {
+                                                        "field": "Microsoft.Compute/imageSKU",
+                                                        "match": "14.04.#-LTS"
+                                                    },
+                                                    {
+                                                        "field": "Microsoft.Compute/imageSKU",
+                                                        "match": "16.04.#-LTS"
+                                                    },
+                                                    {
+                                                        "field": "Microsoft.Compute/imageSKU",
+                                                        "match": "18.04.#-LTS"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "DeployifNotExists",
+                        "details": {
+                            "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
+                            "name": "PasswordPolicy_msid121",
+                            "deployment": {
+                                "properties": {
+                                    "mode": "incremental",
+                                    "parameters": {
+                                        "vmName": {
+                                            "value": "[field('name')]"
+                                        },
+                                        "location": {
+                                            "value": "[field('location')]"
+                                        },
+                                        "configurationName": {
+                                            "value": "PasswordPolicy_msid121"
+                                        }
+                                    },
+                                    "template": {
+                                        "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                        "contentVersion": "1.0.0.0",
+                                        "parameters": {
+                                            "vmName": {
+                                                "type": "string"
+                                            },
+                                            "location": {
+                                                "type": "string"
+                                            },
+                                            "configurationName": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "resources": [
+                                            {
+                                                "apiVersion": "2018-06-30-preview",
+                                                "type": "Microsoft.Compute/virtualMachines/providers/guestConfigurationAssignments",
+                                                "name": "[concat(parameters('vmName'), '/Microsoft.GuestConfiguration/', parameters('configurationName'))]",
+                                                "location": "[parameters('location')]",
+                                                "properties": {
+                                                    "guestConfiguration": {
+                                                        "name": "[parameters('configurationName')]",
+                                                        "version": "1.*"
+                                                    }
+                                                },
+                                                "dependsOn": [
+                                                    "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'))]"
+                                                ]
+                                            },
+                                            {
+                                                "apiVersion": "2017-03-30",
+                                                "type": "Microsoft.Compute/virtualMachines",
+                                                "identity": {
+                                                    "type": "SystemAssigned"
+                                                },
+                                                "name": "[parameters('vmName')]",
+                                                "location": "[parameters('location')]"
+                                            },
+                                            {
+                                                "apiVersion": "2015-05-01-preview",
+                                                "name": "[concat(parameters('vmName'), '/Microsoft.AzurePolicyforLinux')]",
+                                                "type": "Microsoft.Compute/virtualMachines/extensions",
+                                                "location": "[parameters('location')]",
+                                                "properties": {
+                                                    "publisher": "Microsoft.GuestConfiguration",
+                                                    "type": "ConfigurationforLinux",
+                                                    "typeHandlerVersion": "1.0",
+                                                    "autoUpgradeMinorVersion": true
+                                                },
+                                                "dependsOn": [
+                                                    "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',parameters('configurationName'))]"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         {
             "apiVersion": "2017-04-01",
             "type": "Microsoft.Network/virtualNetworks",
@@ -81,7 +218,8 @@
             "name": "[variables('vmName')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]",
+                "[resourceId('Microsoft.Authorization/policyDefinitions/', variables('definitionName0'))]"
             ],
             "properties": {
                 "hardwareProfile": {
