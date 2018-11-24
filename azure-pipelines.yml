@@ -11,5 +11,6 @@ variables:
 
 steps:
 - script: |
+    pwsh
     write-host 'hello, world'
   displayName: 'hello, world'
