@@ -17,8 +17,8 @@
     },
     "variables": {
         "imagePublisher": "Canonical",
-        "imageOffer": "16.04.0-LTS",
-        "imageSKU": "7.5",
+        "imageOffer": "UbuntuServer",
+        "imageSKU": "16.04.0-LTS",
         "osDiskName": "osdisk",
         "diskType": "Standard_LRS",
         "nicName": "nic0",
