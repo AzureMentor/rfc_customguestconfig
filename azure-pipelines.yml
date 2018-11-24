@@ -10,6 +10,9 @@ variables:
 pool: 'Hosted Ubuntu 1604'
 
 steps:
+- script: |
+    pwsh
+    write-out 'hello, world'
 - task: AzureResourceGroupDeployment@2
   inputs:
     azureSubscription: 'ARM'
@@ -18,6 +21,3 @@ steps:
     location: 'eastus2'
     csmFile: deploy.json
     overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(adminPassword)'
-- script: |
-  pwsh
-  write-out 'hello, world'
