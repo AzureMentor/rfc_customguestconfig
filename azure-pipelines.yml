@@ -1,8 +1,8 @@
-#resources:
-#  containers:
-#  - container: 'azure-powershell-core'
-#    image: 'azuresdk/azure-powershell-core'
-# container: 'azure-powershell-core'
+resources:
+  containers:
+  - container: 'azure-powershell-core'
+    image: 'azuresdk/azure-powershell-core'
+ container: 'azure-powershell-core'
 
 variables:
 - group: vmusers
