@@ -18,3 +18,6 @@ steps:
     location: 'eastus2'
     csmFile: deploy.json
     overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(adminPassword)'
+- script: |
+  pwsh
+  write-out 'hello, world'
