@@ -9,8 +9,10 @@ container: 'azure-powershell-core'
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: |
-    pwsh
-    write-host 'hello, world'
-  displayName: 'hello, world'
+- task: AzureResourceGroupDeployment@2
+  inputs:
+    azureSubscription: 'ARM'
+    resourceGroupName: 'contosodev-ccd_customguestconfig'
+    templateLocation: 'URL of the file'
+    csmFileLink: '$(Build.Repository.LocalPath)/deploy.json'
+    overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(adminPassword)'
