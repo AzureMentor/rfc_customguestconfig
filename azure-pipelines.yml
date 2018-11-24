@@ -4,6 +4,10 @@ variables:
 pool: 'Hosted VS2017'
 
 steps:
+- powershell |
+    Invoke-WebRequest -Uri 'https://github.com/PowerShell/PowerShell/releases/download/v6.2.0-preview.2/PowerShell-6.2.0-preview.2-win-x64.msi' -OutFile "$env:temp\PowerShell-6.2.0-preview.2-win-x64.msi"
+    Unblock-File "$env:temp\PowerShell-6.2.0-preview.2-win-x64.msi"
+    & "$env:temp\PowerShell-6.2.0-preview.2-win-x64.msi" -quiet
 - task: AzurePowerShell@3
   displayName: 'Publish Azure Policy definition for DeployIfNotExists rule'
   inputs:
