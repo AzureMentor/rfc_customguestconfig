@@ -19,7 +19,7 @@
         "imagePublisher": "Canonical",
         "imageOffer": "16.04.0-LTS",
         "imageSKU": "7.5",
-        "osDiskName": "osDisk",
+        "osDiskName": "osdisk",
         "diskType": "Standard_LRS",
         "nicName": "nic0",
         "ipConfigName": "ipConfig",
