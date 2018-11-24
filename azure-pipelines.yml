@@ -5,15 +5,18 @@ pool: 'Hosted VS2017'
 
 steps:
 - task: AzurePowerShell@3
+  displayName: 'Publish Azure Policy definition for DeployIfNotExists rule'
   inputs:
     azureSubscription: 'ARM'
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      $definition = (Get-Content {0} | ConvertFrom-Json -AsHashtable).Values
+      param($path)
+      $definition = (Get-Content $path | ConvertFrom-Json -AsHashtable).Values
       New-AzureRMPolicyDefinition @definition -verbose
     scriptArguments: '$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json'
 - task: AzureResourceGroupDeployment@2
+  displayName: "Deploy virtual machine to Azure"
   inputs:
     azureSubscription: 'ARM'
     resourceGroupName: 'contosodev-ccd_customguestconfig'
