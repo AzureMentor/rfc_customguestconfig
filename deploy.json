@@ -33,7 +33,10 @@
         "definitionName0": "852a2bc9-9a15-446e-a19b-d5b29e60a52a",
         "singleQuote": "'",
         "vmName": "[concat('[field(', variables('singleQuote') ,'name', variables('singleQuote'), ')]')]",
-        "vmLocation": "[concat('[field(', variables('singleQuote') ,'location', variables('singleQuote'), ')]')]"
+        "vmLocation": "[concat('[field(', variables('singleQuote') ,'location', variables('singleQuote'), ')]')]",
+        "configurationName": "",
+        "vmNameParameter": "",
+        "locationParameter": ""
     },
     "resources": [
         {
