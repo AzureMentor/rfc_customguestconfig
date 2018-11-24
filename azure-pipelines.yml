@@ -12,6 +12,7 @@ steps:
     azureSubscription: 'ARM'
     type: 'Incremental'
     resourceGroupName: 'contosodev-ccd_customguestconfig'
-    csmFileLink: 'deploy.json'
-    csmParametersFileLink: 'deploy.parameters.json'
+    location: 'eastus2'
+    csmFileLink: deploy.json
+    csmParametersFileLink: deploy.parameters.json
     overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(adminPassword)'
