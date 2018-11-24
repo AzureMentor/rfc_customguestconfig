@@ -162,7 +162,7 @@
                                                     "autoUpgradeMinorVersion": true
                                                 },
                                                 "dependsOn": [
-                                                    "[concat('Microsoft.Compute/virtualMachines/',variables('vmNameParameter'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',parameters('configurationName'))]"
+                                                    "[concat('Microsoft.Compute/virtualMachines/',variables('vmNameParameter'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configurationName'))]"
                                                 ]
                                             }
                                         ]
