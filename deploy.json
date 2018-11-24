@@ -64,7 +64,7 @@
             "properties": {
                 "ipConfigurations": [
                     {
-                        "name": "variables('ipConfigName')",
+                        "name": "[variables('ipConfigName')]",
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "subnet": {
