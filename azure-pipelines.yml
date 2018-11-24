@@ -1,12 +1,15 @@
+resources:
+  containers:
+  - container: 'azure-powershell-core'
+    image: 'azuresdk/azure-powershell-core'
 
-pool:
-  vmImage: 'ubuntu-16.04'
+pool: 'Hosted Ubuntu 1604'
+container: 'azure-powershell-core'
+
+variables:
+  buildConfiguration: 'Release'
 
 steps:
 - script: |
-  wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
-  sudo dpkg -i packages-microsoft-prod.deb
-  sudo apt-get update
-  sudo apt-get install -y powershell
-  pwsh
-  write-host 'hello, world'
+    write-host 'hello, world'
+  displayName: 'hello, world'
