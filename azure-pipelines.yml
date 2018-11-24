@@ -15,4 +15,4 @@ steps:
     templateLocation: 'URL of the file'
     csmFileLink: 'https://raw.githubusercontent.com/Microsoft/ccd_customguestconfig/master/deploy.json'
     csmParametersFileLink: 'https://raw.githubusercontent.com/Microsoft/ccd_customguestconfig/master/deploy.parameters.json'
-    overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(adminPassword)'
+    #overrideParameters: '-adminUsername $(adminUsername) -adminPassword $(adminPassword)'
