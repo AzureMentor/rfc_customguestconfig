@@ -7,13 +7,12 @@ steps:
 - task: AzurePowerShell@3
   inputs:
     azureSubscription: 'ARM'
+    azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      get-azurermresourcegroup -name 'contosodev-ccd_customguestconfig'
-    azurePowerShellVersion: 'latestVersion'
-    #scriptArguments: # Optional
-    #errorActionPreference: 'stop' # Optional. Options: stop, continue, silentlyContinue
-    #failOnStandardError: false # Optional
+      $definition = (Get-Content {0} | ConvertFrom-Json -AsHashtable).Values
+      New-AzureRMPolicyDefinition @definition -verbose
+    scriptArguments: '$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json'
 - task: AzureResourceGroupDeployment@2
   inputs:
     azureSubscription: 'ARM'
