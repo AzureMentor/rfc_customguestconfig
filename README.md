@@ -5,13 +5,6 @@
 This is a theoretical example of a template
 for deploying custom guest configurations on Azure.
 
-## Credit to community examples
-
-Thank you Stanislav Zhelyazkov for the 
-[blog post example](https://cloudadministrator.net/2018/07/17/defining-input-parameters-for-policy-definitions-in-arm-template/)
-with a creative workaround to capture functions as a variable,
-including the single quote as a unique variable.
-
 
 ## Contributing
 
