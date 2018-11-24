@@ -11,8 +11,9 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      $definition = (Get-Content "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json" | ConvertFrom-Json -AsHashtable).Values
-      New-AzureRMPolicyDefinition @definition -verbose
+      & 'C:\Program Files\PowerShell\6-preview\pwsh.exe' -command {write 'hello, world'}
+      #$definition = (Get-Content "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json" | ConvertFrom-Json -AsHashtable).Values
+      #New-AzureRMPolicyDefinition @definition -verbose
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
   inputs:
