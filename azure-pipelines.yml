@@ -9,6 +9,7 @@ container: 'azure-powershell-core'
 variables:
   buildConfiguration: 'Release'
 
+steps:
 - task: AzureResourceGroupDeployment@2
   inputs:
     azureSubscription: 'ARM'
