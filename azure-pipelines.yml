@@ -11,8 +11,8 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      param($path)
-      $definition = (Get-Content $path | ConvertFrom-Json -AsHashtable).Values
+      param(`$path)
+      $definition = (Get-Content `$path | ConvertFrom-Json -AsHashtable).Values
       New-AzureRMPolicyDefinition @definition -verbose
     scriptArguments: '-path $(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json'
 - task: AzureResourceGroupDeployment@2
