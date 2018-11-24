@@ -10,9 +10,15 @@ pool: 'Hosted Ubuntu 1604'
 container: 'azure-powershell-core'
 
 steps:
-- script: |
-    pwsh
-    write-out 'hello, world'
+- task: AzurePowerShell@3
+  inputs:
+    azureSubscription: 'ARM'
+    scriptType: 'inlineScript'
+    inline: |
+      get-azurermresourcegroup -name 'contosodev-ccd_customguestconfig'
+    #scriptArguments: # Optional
+    #errorActionPreference: 'stop' # Optional. Options: stop, continue, silentlyContinue
+    #failOnStandardError: false # Optional
 - task: AzureResourceGroupDeployment@2
   inputs:
     azureSubscription: 'ARM'
