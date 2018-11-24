@@ -10,6 +10,7 @@ steps:
     scriptType: 'inlineScript'
     inline: |
       get-azurermresourcegroup -name 'contosodev-ccd_customguestconfig'
+    azurePowerShellVersion: 'latestVersion'
     #scriptArguments: # Optional
     #errorActionPreference: 'stop' # Optional. Options: stop, continue, silentlyContinue
     #failOnStandardError: false # Optional
