@@ -20,6 +20,15 @@ steps:
         Metadata      = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.metadata.json"
         }
       New-AzureRMPolicyDefinition @deployIfNotExists
+      $auditIfNotExists = @{
+        Name        = '3f6f3c70-1f39-4e6d-9ecc-8e1f377772f9'
+        DisplayName = '[CCD_CustomGuestConfig]: Audit passwd file permissions'
+        Description = 'Custom Audit if Not Exists rule to validate /etc/passwd file permissions are set to 0644.'
+        Mode        = 'Indexed'
+        Policy      = "$(Build.SourcesDirectory)\customPolicyFiles\auditIfNotExists.rules.json"
+        Metadata      = "$(Build.SourcesDirectory)\customPolicyFiles\auditIfNotExists.metadata.json"
+        }
+      New-AzureRMPolicyDefinition @auditIfNotExists
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
   inputs:
