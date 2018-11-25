@@ -15,7 +15,7 @@ steps:
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName    = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
         Description    = 'Custom Deploy if Not Exists rule to add VM extension, MSI, and guest assignment.'
-        SubscriptionId = $(SubscriptionID)
+        SubscriptionId = '$(SubscriptionID)'
         Mode           = 'Indexed'
         Policy         = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json"
         Metadata       = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.metadata.json"
@@ -26,7 +26,7 @@ steps:
         Name           = '3f6f3c70-1f39-4e6d-9ecc-8e1f377772f9'
         DisplayName    = '[CCD_CustomGuestConfig]: Audit passwd file permissions'
         Description    = 'Custom Audit if Not Exists rule to validate /etc/passwd file permissions are set to 0644.'
-        SubscriptionId = $(SubscriptionID)
+        SubscriptionId = '$(SubscriptionID)'
         Mode           = 'Indexed'
         Policy         = "$(Build.SourcesDirectory)\customPolicyFiles\auditIfNotExists.rules.json"
         Metadata       = "$(Build.SourcesDirectory)\customPolicyFiles\auditIfNotExists.metadata.json"
@@ -37,7 +37,7 @@ steps:
         Name             = 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
         DisplayName      = '[CCD_CustomGuestConfig]: Onboard and Audit custom guest configuration'
         Description      = 'CD/CD solution for custom guest config validation.'
-        SubscriptionId   = $(SubscriptionID)
+        SubscriptionId   = '$(SubscriptionID)'
         PolicyDefinition = '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json'
         Metadata         = '$(Build.SourcesDirectory)\customPolicyFiles\initiative.metadata.json'
       }
