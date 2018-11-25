@@ -1,0 +1,53 @@
+{
+    "if": {
+        "allOf": [
+            {
+                "field": "type",
+                "equals": "Microsoft.Compute/virtualMachines"
+            },
+            {
+                "allOf": [
+                    {
+                        "field": "Microsoft.Compute/imagePublisher",
+                        "equals": "Canonical"
+                    },
+                    {
+                        "field": "Microsoft.Compute/imageOffer",
+                        "equals": "UbuntuServer"
+                    },
+                    {
+                        "anyOf": [
+                            {
+                                "field": "Microsoft.Compute/imageSKU",
+                                "match": "14.04.#-LTS"
+                            },
+                            {
+                                "field": "Microsoft.Compute/imageSKU",
+                                "match": "16.04.#-LTS"
+                            },
+                            {
+                                "field": "Microsoft.Compute/imageSKU",
+                                "equals": "16.04-LTS"
+                            },
+                            {
+                                "field": "Microsoft.Compute/imageSKU",
+                                "match": "18.04-LTS"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "then": {
+        "effect": "auditIfNotExists",
+        "details": {
+            "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
+            "name": "PasswordPolicy_msid121",
+            "existenceCondition": {
+                "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/complianceStatus",
+                "equals": "Compliant"
+            }
+        }
+    }
+}

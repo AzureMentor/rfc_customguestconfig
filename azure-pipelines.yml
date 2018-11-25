@@ -15,7 +15,9 @@ steps:
         Name        = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
         Description = 'Custom Deploy if Not Exists rule to add VM extension, MSI, and guest assignment.'
-        Policy      = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json"
+        Mode        = 'Indexed'
+        Policy      = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json"
+        Metadata      = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.metadata.json"
         }
       New-AzureRMPolicyDefinition @deployIfNotExists
 - task: AzureResourceGroupDeployment@2
