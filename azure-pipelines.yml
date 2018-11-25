@@ -20,6 +20,7 @@ steps:
         Metadata      = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.metadata.json"
         }
       New-AzureRMPolicyDefinition @deployIfNotExists
+      
       $auditIfNotExists = @{
         Name        = '3f6f3c70-1f39-4e6d-9ecc-8e1f377772f9'
         DisplayName = '[CCD_CustomGuestConfig]: Audit passwd file permissions'
@@ -29,6 +30,7 @@ steps:
         Metadata      = "$(Build.SourcesDirectory)\customPolicyFiles\auditIfNotExists.metadata.json"
         }
       New-AzureRMPolicyDefinition @auditIfNotExists
+
       $policySet = @{
         Name                = 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
         DisplayName         = '[CCD_CustomGuestConfig]: Onboard and Audit custom guest configuration'
@@ -37,6 +39,21 @@ steps:
         Metadata            = '$(Build.SourcesDirectory)\customPolicyFiles\initiative.metadata.json'
       }
       New-AzureRmPolicySetDefinition @policySet
+      
+      $ResourceGroup = Get-AzureRmResourceGroup -Name 'contosodev-ccd_customguestconfig'
+      $initiative = Get-AzureRmPolicySetDefinition -Name 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
+      
+      $assignment = @{
+        Name = '0d39c29a-135f-4137-b6a8-bcabea6095bb'
+        DisplayName = '[CCD_CustomGuestConfig]: Functional validation for custom guest configuration'
+        Description = 'Assigns an initiative that includes both the deploy and audit policies required for a custom guest configuration'
+        PolicySetDefinition = $initiative
+        Scope = $ResourceGroup.ResourceId
+        Location = 'eastus2'
+        AssignIdentity = $true
+      }
+      New-AzureRmPolicyAssignment @assignment
+      
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
   inputs:
