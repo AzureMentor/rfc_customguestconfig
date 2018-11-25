@@ -4,10 +4,6 @@ variables:
 pool: 'Hosted VS2017'
 
 steps:
-- powershell: |
-    Invoke-WebRequest -Uri 'https://github.com/PowerShell/PowerShell/releases/download/v6.2.0-preview.2/PowerShell-6.2.0-preview.2-win-x64.msi' -OutFile "$env:temp\PowerShell-6.2.0-preview.2-win-x64.msi"
-    Unblock-File "$env:temp\PowerShell-6.2.0-preview.2-win-x64.msi"
-    & "$env:temp\PowerShell-6.2.0-preview.2-win-x64.msi" -quiet
 - task: AzurePowerShell@3
   displayName: 'Publish Azure Policy definition for DeployIfNotExists rule'
   inputs:
@@ -15,8 +11,13 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      $definition = & 'C:\Program Files\PowerShell\6-preview\pwsh.exe' -command {(Get-Content "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json" | ConvertFrom-Json -AsHashtable).Values}
-      New-AzureRMPolicyDefinition @definition -verbose
+    $deployIfNotExists = @{
+    Name        = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
+    DisplayName = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
+    Description = 'Custom Deploy if Not Exists rule to add VM extension, MSI, and guest assignment.'
+    Policy      = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.json"
+    }
+    New-AzureRMPolicyDefinition @deployIfNotExists
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
   inputs:
