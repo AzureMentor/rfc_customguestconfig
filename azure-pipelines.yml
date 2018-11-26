@@ -12,8 +12,8 @@ steps:
     scriptType: 'inlineScript'
     inline: |
       Update-Module 'AzureRM.Resources' -AllowPreRelease -Force
+      Remove-Module 'AzureRM.Resources' -Force
       Import-Module 'AzureRM.Resources' -Force
-      Get-Help New-AzureRmPolicyAssignment -detailed
 
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
