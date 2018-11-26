@@ -4,18 +4,18 @@ variables:
 pool: 'Hosted VS2017'
 
 steps:
+- powershell: |
+    Update-Module 'AzureRM' -force
+    Update-Module 'AzureRM.Resources' -force
+
 - task: AzurePowerShell@3
   displayName: 'Publish Azure Policy definition for DeployIfNotExists rule'
   inputs:
     azureSubscription: 'ARM'
-    azurePowerShellVersion: 'latestVersion'
+    azurePowerShellVersion: 'otherVersion'
+    preferredAzurePowerShellVersion: '6.13.1'
     scriptType: 'inlineScript'
     inline: |
-      Update-Module 'AzureRM.Resources' -AllowPreRelease -Force
-      Remove-Module 'AzureRM.Resources' -Force
-      Import-Module 'AzureRM.Resources' -Force -ErrorAction SilentlyContinue
-      Import-Module 'AzureRM.Resources' -Force
-
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName    = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
