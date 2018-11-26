@@ -11,6 +11,8 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
+      Update-Module -Name 'AzureRM.Resources' -force
+      
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName    = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
@@ -55,8 +57,10 @@ steps:
         Description = 'Assigns an initiative that includes both the deploy and audit policies required for a custom guest configuration'
         PolicySetDefinition = $initiative
         Scope = $ResourceGroup.ResourceId
+        Location = 'eastus2'
+        AssignIdentity
       }
-      New-AzureRmPolicyAssignment @assignment -Location 'eastus2' -AssignIdentity
+      New-AzureRmPolicyAssignment @assignment
 
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
