@@ -29,7 +29,8 @@
         "vmName": "centos",
         "vmSize": "Standard_DS3_V2",
         "virtualNetworkName": "vnet0",
-        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
+        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"[concat(variables('vmName'), '/Microsoft.GuestConfiguration/', variables('configurationName'))]"[concat(variables('vmName'), '/Microsoft.GuestConfiguration/', variables('configurationName'))]",
+        "configurationName": "PasswordPolicy_msid121"
     },
     "resources": [
         {
@@ -116,6 +117,45 @@
                     ]
                 }
             }
+        },
+        {
+            "apiVersion": "2018-06-30-preview",
+            "type": "Microsoft.Compute/virtualMachines/providers/guestConfigurationAssignments",
+            "name": "[concat(variables('vmName'), '/Microsoft.GuestConfiguration/', variables('configurationName'))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
+            ],
+            "properties": {
+                "guestConfiguration": {
+                    "name": "[variables('configurationName')]",
+                    "version": "1.*"
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-03-30",
+            "type": "Microsoft.Compute/virtualMachines",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "name": "[variables('vmName')]",
+            "location": "[resourceGroup().location]"
+        },
+        {
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(variables('vmName'), '/AzurePolicyforLinux')]",
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "location": "[resourceGroup().location]",            
+            "properties": {
+                "publisher": "Microsoft.GuestConfiguration",
+                "type": "ConfigurationforLinux",
+                "typeHandlerVersion": "1.0",
+                "autoUpgradeMinorVersion": true
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configurationName'))]"
+            ]
         }
     ],
     "outputs": {}
