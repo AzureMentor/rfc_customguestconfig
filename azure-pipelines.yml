@@ -11,8 +11,6 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      Get-AzureRMContext
-      
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName    = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
@@ -35,6 +33,9 @@ steps:
         }
       New-AzureRMPolicyDefinition @auditIfNotExists
 
+      #temp workaround
+      (get-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json').replace(subscriptionID,$(subscriptionID)) | set-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json' -force
+      
       $policySet = @{
         Name             = 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
         DisplayName      = '[CCD_CustomGuestConfig]: Onboard and Audit custom guest configuration'
