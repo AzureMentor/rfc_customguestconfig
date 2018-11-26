@@ -1,7 +1,18 @@
+pool: 'Hosted VS2017'
+
 variables:
 - group: vmusers
 
-pool: 'Hosted VS2017'
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - README.md
+    - LICENSE
+    - .gitignore
+    - .github/*
 
 steps:
 - powershell: |
@@ -27,7 +38,7 @@ steps:
       $rgName = 'contosodev-ccd_customguestconfig'
       $rg = Get-AzureRMResourceGroup -Name $rgName
       if (!$rg) {New-AzureRMResourceGroup -Name $rgName -Location 'eastus2'}
-      
+
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName    = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'

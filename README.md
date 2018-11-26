@@ -4,9 +4,26 @@
 
 [![Deployment Gate Status](https://vsrm.dev.azure.com/azvmguestpolicy/_apis/public/Release/badge/8cf7364a-2490-4dd7-8353-5c7e17e8728d/1/1)](https://vsrm.dev.azure.com/azvmguestpolicy/_apis/public/Release/badge/8cf7364a-2490-4dd7-8353-5c7e17e8728d/1/1)
 
-This is a theoretical example of a template
-for deploying custom guest configurations on Azure.
+This repository is the home for a *theoretical* design for Azure Guest Configuration
+to support customer-provided content.
+As part of an open collaboration with the community
+we welcome you to review the information on this page,
+the project examples,
+and **please provide feedback** using the survey in the
+[Issues](https://github.com/Microsoft/ccd_customguestconfig/issues)
+list.
 
+## What is the scenario we would like to support?
+
+text
+
+## What are we proposing we do to support this scenario?
+
+api properties
+
+package
+
+cmdlets
 
 ## Contributing
 
