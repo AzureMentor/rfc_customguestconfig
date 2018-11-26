@@ -92,7 +92,7 @@
                             {
                                 "apiVersion": "2018-06-30-preview",
                                 "type": "Microsoft.Compute/virtualMachines/providers/guestConfigurationAssignments",
-                                "name": "[concat(parameters('vmName'), '/Microsoft.GuestConfiguration/', parameters('configurationName'))]",
+                                "name": "[concat(parameters('vmName'), '/Microsoft.GuestConfiguration/', variables('configuration').name)]",
                                 "location": "[parameters('location')]",
                                 "properties": {
                                     "guestConfiguration": {
@@ -122,7 +122,7 @@
                                     "autoUpgradeMinorVersion": true
                                 },
                                 "dependsOn": [
-                                    "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',parameters('configurationName'))]"
+                                    "[concat('Microsoft.Compute/virtualMachines/',parameters('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configuration').name)]"
                                 ]
                             }
                         ]

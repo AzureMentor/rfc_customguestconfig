@@ -137,7 +137,7 @@
         {
             "apiVersion": "2018-06-30-preview",
             "type": "Microsoft.Compute/virtualMachines/providers/guestConfigurationAssignments",
-            "name": "[concat(variables('vmName'), '/Microsoft.GuestConfiguration/', variables('configurationName'))]",
+            "name": "[concat(variables('vmName'), '/Microsoft.GuestConfiguration/', variables('configuration').name)]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
@@ -155,7 +155,7 @@
             "name": "[concat(variables('vmName'), '/', variables('extension').name)]",
             "location": "[resourceGroup().location]",            
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configurationName'))]"
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configuration').name)]"
             ],
             "properties": {
                 "publisher": "Microsoft.GuestConfiguration",
