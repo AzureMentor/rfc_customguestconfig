@@ -55,9 +55,8 @@ steps:
         Description = 'Assigns an initiative that includes both the deploy and audit policies required for a custom guest configuration'
         PolicySetDefinition = $initiative
         Scope = $ResourceGroup.ResourceId
-        Location = 'eastus2'
       }
-      New-AzureRmPolicyAssignment @assignment -AssignIdentity
+      New-AzureRmPolicyAssignment @assignment -Location 'eastus2' -AssignIdentity
 
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
