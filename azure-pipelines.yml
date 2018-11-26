@@ -11,7 +11,8 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      Update-Module -Name 'AzureRM.Resources' -force
+      Get-Command New-AzureRmPolicyAssignment | fl *
+      Get-Help New-AzureRmPolicyAssignment -detailed
 
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
@@ -35,7 +36,7 @@ steps:
         }
       New-AzureRMPolicyDefinition @auditIfNotExists
 
-      #temp workaround
+      #workaround
       (get-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json').replace('subscriptionID','$(subscriptionID)') | set-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json' -force
 
       $policySet = @{
