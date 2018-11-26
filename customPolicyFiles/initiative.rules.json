@@ -1,8 +1,8 @@
 [
     {
-        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/852a2bc9-9a15-446e-a19b-d5b29e60a52a"
+        "policyDefinitionId": "/subscriptions/(subscriptionID)/providers/Microsoft.Authorization/policyDefinitions/852a2bc9-9a15-446e-a19b-d5b29e60a52a"
     },
     {
-        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/3f6f3c70-1f39-4e6d-9ecc-8e1f377772f9"
+        "policyDefinitionId": "/subscriptions/(subscriptionID)/providers/Microsoft.Authorization/policyDefinitions/3f6f3c70-1f39-4e6d-9ecc-8e1f377772f9"
     }
 ]
