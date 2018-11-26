@@ -17,11 +17,13 @@ trigger:
 steps:
 - powershell: |
     Compress-Archive -Path '$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\' -DestinationPath '$(Build.ArtifactStagingDirectory)\customconfig.zip'
+  displayName: 'Create custom configuration package'
 
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: customconfig
+  displayName: 'Publish package to Azure Artifacts'
 
 - powershell: |
     Update-Module 'AzureRM' -force
@@ -35,9 +37,9 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      $rgName = 'contosodev-ccd_customguestconfig'
-      $rg = Get-AzureRMResourceGroup -Name $rgName
-      if (!$rg) {New-AzureRMResourceGroup -Name $rgName -Location 'eastus2'}
+      $Name = 'contosodev-ccd_customguestconfig'
+      $ResourceGroup = Get-AzureRmResourceGroup -Name $Name -ErrorAction SilentlyContinue
+      if ($null -eq $ResourceGroup) {New-AzureRMResourceGroup -Name $Name -Location 'eastus2'}
 
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
@@ -74,7 +76,6 @@ steps:
       }
       $setDef = New-AzureRmPolicySetDefinition @policySet
       
-      $ResourceGroup = Get-AzureRmResourceGroup -Name 'contosodev-ccd_customguestconfig'
       $initiative = Get-AzureRmPolicySetDefinition -Name 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
       
       $assignment = @{
