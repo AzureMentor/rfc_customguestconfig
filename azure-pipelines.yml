@@ -56,9 +56,8 @@ steps:
         PolicySetDefinition = $initiative
         Scope = $ResourceGroup.ResourceId
         Location = 'eastus2'
-        AssignIdentity = $true
       }
-      New-AzureRmPolicyAssignment @assignment
+      New-AzureRmPolicyAssignment @assignment -AssignIdentity
 
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
