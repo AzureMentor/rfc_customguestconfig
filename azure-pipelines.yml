@@ -13,6 +13,7 @@ steps:
     inline: |
       Update-Module 'AzureRM.Resources' -AllowPreRelease -Force
       Remove-Module 'AzureRM.Resources' -Force
+      Import-Module 'AzureRM.Resources' -Force -ErrorAction SilentlyContinue
       Import-Module 'AzureRM.Resources' -Force
 
       $deployIfNotExists = @{
