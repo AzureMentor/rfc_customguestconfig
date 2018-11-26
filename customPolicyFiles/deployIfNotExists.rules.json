@@ -72,6 +72,22 @@
                                 "type": "string"
                             }
                         },
+                        "variables": {
+                            "extension": {
+                                "name": "AzurePolicyforWindows",
+                                "type": "ConfigurationforWindows",
+                                "version": "1.0"
+                            },
+                            "configuration": {
+                                "kind": null,
+                                "name": "PasswordPolicy_msid121",
+                                "version": "1.*",
+                                "contentUri": null,
+                                "contentHash": null,
+                                "configurationParameter": null,
+                                "configurationSetting": null
+                            }
+                        },
                         "resources": [
                             {
                                 "apiVersion": "2018-06-30-preview",
@@ -80,8 +96,8 @@
                                 "location": "[parameters('location')]",
                                 "properties": {
                                     "guestConfiguration": {
-                                        "name": "[parameters('configurationName')]",
-                                        "version": "1.*"
+                                        "name": "[variables('configuration').name]",
+                                        "version": "[variables('configuration').version]"
                                     }
                                 }
                             },
@@ -96,13 +112,13 @@
                             },
                             {
                                 "apiVersion": "2015-05-01-preview",
-                                "name": "[concat(parameters('vmName'), '/AzurePolicyforLinux')]",
+                                "name": "[concat(parameters('vmName'), '/', variables('extension').name)]",
                                 "type": "Microsoft.Compute/virtualMachines/extensions",
                                 "location": "[parameters('location')]",
                                 "properties": {
                                     "publisher": "Microsoft.GuestConfiguration",
-                                    "type": "ConfigurationforLinux",
-                                    "typeHandlerVersion": "1.0",
+                                    "type": "[variables('extension').type]",
+                                    "typeHandlerVersion": "[variables('extension').version]",
                                     "autoUpgradeMinorVersion": true
                                 },
                                 "dependsOn": [

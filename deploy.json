@@ -26,15 +26,24 @@
         "addressPrefix": "10.0.0.0/24",
         "subnetName": "subnet0",
         "subnetPrefix": "10.0.0.0/24",
-        "vmName": "centos",
+        "vmName": "vm",
         "vmSize": "Standard_DS3_V2",
         "virtualNetworkName": "vnet0",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
-        "extensionName": "AzurePolicyforWindows",
-        "extensionType": "ConfigurationforWindows",
-        "configurationName": "PasswordPolicy_msid121",
-        "configurationURI": "",
-        "configurationHash": ""
+        "extension": {
+            "name": "AzurePolicyforWindows",
+            "type": "ConfigurationforWindows",
+            "version": "1.0"
+        },
+        "configuration": {
+            "kind": null,
+            "name": "PasswordPolicy_msid121",
+            "version": "1.*",
+            "contentUri": null,
+            "contentHash": null,
+            "configurationParameter": null,
+            "configurationSetting": null
+        }
     },
     "resources": [
         {
@@ -135,23 +144,23 @@
             ],
             "properties": {
                 "guestConfiguration": {
-                    "name": "[variables('configurationName')]",
-                    "version": "1.*"
+                    "name": "[variables('configuration').name]",
+                    "version": "[variables('configuration').version]"
                 }
             }
         },
         {
             "apiVersion": "2015-05-01-preview",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('vmName'), '/', variables('extensionName'))]",
+            "name": "[concat(variables('vmName'), '/', variables('extension').name)]",
             "location": "[resourceGroup().location]",            
             "dependsOn": [
                 "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configurationName'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.GuestConfiguration",
-                "type": "[variables('extensionType')]",
-                "typeHandlerVersion": "1.0",
+                "type": "[variables('extension').type]",
+                "typeHandlerVersion": "[variables('extension').version]",
                 "autoUpgradeMinorVersion": true
             }
         }
