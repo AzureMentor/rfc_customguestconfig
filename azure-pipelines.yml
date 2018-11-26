@@ -12,7 +12,7 @@ steps:
     scriptType: 'inlineScript'
     inline: |
       Update-Module -Name 'AzureRM.Resources' -force
-      
+
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName    = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
@@ -58,7 +58,7 @@ steps:
         PolicySetDefinition = $initiative
         Scope = $ResourceGroup.ResourceId
         Location = 'eastus2'
-        AssignIdentity
+        AssignIdentity = $true
       }
       New-AzureRmPolicyAssignment @assignment
 
