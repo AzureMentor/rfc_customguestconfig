@@ -17,7 +17,7 @@
     },
     "variables": {
         "imagePublisher": "MicrosoftWindowsServer",
-        "imageOffer": "WindowServer",
+        "imageOffer": "WindowsServer",
         "imageSKU": "2016-Datacenter-Server-Core",
         "osDiskName": "osdisk",
         "diskType": "Standard_LRS",
