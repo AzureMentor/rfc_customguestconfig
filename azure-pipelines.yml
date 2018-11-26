@@ -6,14 +6,14 @@ pool: 'Hosted VS2017'
 steps:
 - powershell: |
     Update-Module 'AzureRM' -force
-    Update-Module 'AzureRM.Resources' -force
+    Install-Module 'AzureRM.GuestConfiguration' -AllowPreRelease -Force
+  displayName: 'Update Azure PowerShell modules'
 
 - task: AzurePowerShell@3
   displayName: 'Publish Azure Policy definition for DeployIfNotExists rule'
   inputs:
     azureSubscription: 'ARM'
-    azurePowerShellVersion: 'otherVersion'
-    preferredAzurePowerShellVersion: '6.13.1'
+    azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
       $deployIfNotExists = @{
