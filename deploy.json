@@ -16,9 +16,9 @@
         }
     },
     "variables": {
-        "imagePublisher": "Canonical",
-        "imageOffer": "UbuntuServer",
-        "imageSKU": "16.04.0-LTS",
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowServer",
+        "imageSKU": "2016-Datacenter-Server-Core",
         "osDiskName": "osdisk",
         "diskType": "Standard_LRS",
         "nicName": "nic0",
@@ -30,7 +30,11 @@
         "vmSize": "Standard_DS3_V2",
         "virtualNetworkName": "vnet0",
         "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
-        "configurationName": "PasswordPolicy_msid121"
+        "extensionName": "AzurePolicyforWindows",
+        "extensionType": "ConfigurationforWindows",
+        "configurationName": "PasswordPolicy_msid121",
+        "configurationURI": "",
+        "configurationHash": ""
     },
     "resources": [
         {
@@ -138,18 +142,18 @@
         },
         {
             "apiVersion": "2015-05-01-preview",
-            "name": "[concat(variables('vmName'), '/AzurePolicyforLinux')]",
             "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(variables('vmName'), '/', variables('extensionName'))]",
             "location": "[resourceGroup().location]",            
-            "properties": {
-                "publisher": "Microsoft.GuestConfiguration",
-                "type": "ConfigurationforLinux",
-                "typeHandlerVersion": "1.0",
-                "autoUpgradeMinorVersion": true
-            },
             "dependsOn": [
                 "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configurationName'))]"
-            ]
+            ],
+            "properties": {
+                "publisher": "Microsoft.GuestConfiguration",
+                "type": "[variables('extensionType')]",
+                "typeHandlerVersion": "1.0",
+                "autoUpgradeMinorVersion": true
+            }
         }
     ],
     "outputs": {}
