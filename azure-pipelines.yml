@@ -24,6 +24,10 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
+      $rgName = 'contosodev-ccd_customguestconfig'
+      $rg = Get-AzureRMResourceGroup -Name $rgName
+      if (!$rg) {New-AzureRMResourceGroup -Name $rgName -Location 'eastus2'}
+      
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
         DisplayName    = '[CCD_CustomGuestConfig]: Deploy extension to audit passwd file permissions'
@@ -81,7 +85,7 @@ steps:
       {
           $roleDefinitionIds | ForEach-Object {
               $roleDefId = $_.Split("/") | Select-Object -Last 1
-              New-AzureRmRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
+              New-AzureRmRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId -ErrorAction SilentlyContinue
           }
       }
 
