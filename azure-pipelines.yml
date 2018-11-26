@@ -5,6 +5,14 @@ pool: 'Hosted VS2017'
 
 steps:
 - powershell: |
+    Compress-Archive -Path '$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\' -DestinationPath '$(Build.ArtifactStagingDirectory)\customconfig.zip'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: customconfig
+
+- powershell: |
     Update-Module 'AzureRM' -force
     Install-Module 'AzureRM.GuestConfiguration' -AllowPreRelease -Force
   displayName: 'Update Azure PowerShell modules'
