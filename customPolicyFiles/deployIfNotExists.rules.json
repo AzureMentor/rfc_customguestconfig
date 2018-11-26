@@ -41,7 +41,7 @@
         "details": {
             "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
             "roleDefinitionIds": [
-                "/providers/microsoft.authorization/roleDefinitions/73a6dbe1-ac3a-4b95-a5c4-0a10dd17559b"
+                "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
             ],
             "name": "PasswordPolicy_msid121",
             "deployment": {
