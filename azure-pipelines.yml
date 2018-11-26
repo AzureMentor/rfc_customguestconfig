@@ -11,7 +11,8 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |
-      Update-Module 'AzureRM.Resources' -AllowPreRelease -Force -verbose
+      Update-Module 'AzureRM.Resources' -AllowPreRelease -Force
+      Import-Module 'AzureRM.Resources' -Force
       Get-Help New-AzureRmPolicyAssignment -detailed
 
       $deployIfNotExists = @{
