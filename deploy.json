@@ -29,7 +29,7 @@
         "vmName": "centos",
         "vmSize": "Standard_DS3_V2",
         "virtualNetworkName": "vnet0",
-        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"[concat(variables('vmName'), '/Microsoft.GuestConfiguration/', variables('configurationName'))]"[concat(variables('vmName'), '/Microsoft.GuestConfiguration/', variables('configurationName'))]",
+        "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
         "configurationName": "PasswordPolicy_msid121"
     },
     "resources": [
