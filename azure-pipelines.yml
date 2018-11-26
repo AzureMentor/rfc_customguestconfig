@@ -39,7 +39,7 @@ steps:
     inline: |
       $Name = 'contosodev-ccd_customguestconfig'
       $ResourceGroup = Get-AzureRmResourceGroup -Name $Name -ErrorAction SilentlyContinue
-      if ($null -eq $ResourceGroup) {New-AzureRMResourceGroup -Name $Name -Location 'eastus2'}
+      if ($null -eq $ResourceGroup) {$ResourceGroup = New-AzureRMResourceGroup -Name $Name -Location 'eastus2'}
 
       $deployIfNotExists = @{
         Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
