@@ -33,6 +33,7 @@ steps:
       (get-content "$(Build.SourcesDirectory)\$path").replace('"contentUri": null,',"`"contentUri`": $artifact,") | set-content "$(Build.SourcesDirectory)\$path" -force
       (get-content "$(Build.SourcesDirectory)\$path").replace('"contentHash": null,',"`"contentHash`": $hash,") | set-content "$(Build.SourcesDirectory)\$path" -force
     }
+  displayName: 'Update content with artifact location'
 
 - powershell: |
     Update-Module 'AzureRM' -force
@@ -99,6 +100,7 @@ steps:
       $assignment = New-AzureRmPolicyAssignment @assignment
 
       # Hold for directory replication
+      Write-Host 'Finished creating definitions and assignment.  Holding 60 seconds for replication.'
       Start-sleep 60
 
       $roleDefinitionIds = $deployDef.Properties.policyRule.then.details.roleDefinitionIds
