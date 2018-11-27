@@ -27,7 +27,7 @@ steps:
 
 - powershell: |
     $artifact = (Invoke-RestMethod -Method GET -Uri 'https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/builds/$(build.buildid)/artifacts?artifactName=customconfig&api-version=4.1').resource.downloadUrl
-    $package = Invoke-WebRequest -Uri 'https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/builds/$(build.buildid)/artifacts?artifactName=customconfig&api-version=4.1' -Out '$(System.DefaultWorkingDirectory)\customconfig.zip'
+    $package = Invoke-WebRequest -Uri $artifact -Out '$(System.DefaultWorkingDirectory)\customconfig.zip'
     $hash = Get-FileHash '$(System.DefaultWorkingDirectory)\customconfig.zip' | ForEach-Object $_.Hash
     foreach ($path in ('customPolicyFiles\deployIfNotExists.rules.json','deploy.json')){
       (get-content "$(Build.SourcesDirectory)\$path").replace('"contentUri": null,',"`"contentUri`": $artifact,") | set-content "$(Build.SourcesDirectory)\$path" -force
