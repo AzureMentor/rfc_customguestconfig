@@ -16,7 +16,7 @@ trigger:
 
 steps:
 - powershell: |
-    Copy-Item -Path "$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\*" -DestinationPath "$(Build.ArtifactStagingDirectory)"
+    Copy-Item -Path "$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\*" -Destination "$(Build.ArtifactStagingDirectory)"
   displayName: 'Create custom configuration package'
 
 - task: PublishBuildArtifacts@1
