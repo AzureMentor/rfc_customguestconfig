@@ -16,14 +16,20 @@ trigger:
 
 steps:
 - powershell: |
-    Compress-Archive -Path '$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\' -DestinationPath '$(Build.ArtifactStagingDirectory)\customconfig.zip'
+    Copy-Item -Path "$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\*" -DestinationPath "$(Build.ArtifactStagingDirectory)"
   displayName: 'Create custom configuration package'
 
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: customconfig
-  displayName: 'Publish package to Azure Artifacts'
+  displayName: 'Publish package artifacts'
+
+- powershell: |
+    $artifact = (Invoke-RestMethod -Method GET -Uri 'https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/builds/$(build.buildid)/artifacts?artifactName=customconfig&api-version=4.1').resource.downloadUrl
+    foreach ($path in ('customPolicyFiles\deployIfNotExists.rules.json','deploy.json')){
+      (get-content "$(Build.SourcesDirectory)\$path").replace('"contentUri": null,',"`"contentUri`": $artifact,") | set-content "$(Build.SourcesDirectory)\$path" -force
+    }
 
 - powershell: |
     Update-Module 'AzureRM' -force
