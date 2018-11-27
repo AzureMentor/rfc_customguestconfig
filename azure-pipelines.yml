@@ -30,8 +30,8 @@ steps:
     $package = Invoke-WebRequest -Uri $artifact -Out '$(System.DefaultWorkingDirectory)\customconfig.zip'
     $hash = Get-FileHash '$(System.DefaultWorkingDirectory)\customconfig.zip' | ForEach-Object $_.Hash
     foreach ($path in @('$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json','$(Build.SourcesDirectory)\deploy.json')){
-      (get-content "$path").replace('"contentUri": null,',"`"contentUri`": $artifact,") | set-content "$path" -force
-      (get-content "$path").replace('"contentHash": null,',"`"contentHash`": $hash,") | set-content "$path" -force
+      (get-content "$path").replace('"contentUri": null,',"`"contentUri`": `'$artifact`',") | set-content "$path" -force
+      (get-content "$path").replace('"contentHash": null,',"`"contentHash`": `'$hash`',") | set-content "$path" -force
     }
   displayName: 'Update content with artifact location'
 
@@ -102,7 +102,7 @@ steps:
       # Hold for directory replication
       Start-sleep 60
 
-      #$roleDefinitionIds = $deployDef.Properties.policyRule.then.details.roleDefinitionIds
+      $roleDefinitionIds = $deployDef.Properties.policyRule.then.details.roleDefinitionIds
       if ($roleDefinitionIds.Count -gt 0)
       {
           $roleDefinitionIds | ForEach-Object {
