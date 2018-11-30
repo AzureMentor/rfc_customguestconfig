@@ -60,7 +60,7 @@ steps:
         Policy         = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json"
         Metadata       = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.metadata.json"
         }
-      $deployDef = New-AzureRMPolicyDefinition @deployIfNotExists
+      $deployDef = New-AzureRMPolicyDefinition @deployIfNotExists -verbose
       
       $auditIfNotExists = @{
         Name           = '3f6f3c70-1f39-4e6d-9ecc-8e1f377772f9'
@@ -71,7 +71,7 @@ steps:
         Policy         = "$(Build.SourcesDirectory)\customPolicyFiles\auditIfNotExists.rules.json"
         Metadata       = "$(Build.SourcesDirectory)\customPolicyFiles\auditIfNotExists.metadata.json"
         }
-      $auditDef = New-AzureRMPolicyDefinition @auditIfNotExists
+      $auditDef = New-AzureRMPolicyDefinition @auditIfNotExists -verbose
 
       #workaround
       (get-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json').replace('subscriptionID','$(subscriptionID)') | set-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json' -force
@@ -84,7 +84,7 @@ steps:
         PolicyDefinition = '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json'
         Metadata         = '$(Build.SourcesDirectory)\customPolicyFiles\initiative.metadata.json'
       }
-      $setDef = New-AzureRmPolicySetDefinition @policySet
+      $setDef = New-AzureRmPolicySetDefinition @policySet -verbose
       
       $initiative = Get-AzureRmPolicySetDefinition -Name 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
       
@@ -97,7 +97,7 @@ steps:
         Location = 'eastus2'
         AssignIdentity = $true
       }
-      $assignment = New-AzureRmPolicyAssignment @assignment
+      $assignment = New-AzureRmPolicyAssignment @assignment -verbose
 
       # Hold for directory replication
       Start-sleep 60
@@ -108,8 +108,8 @@ steps:
           $roleDefinitionIds | ForEach-Object {
               $roleDefId = $_.Split("/") | Select-Object -Last 1
               $roleAssignment = Get-AzureRMRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
-              If ($null -eq $roleASsignment) {
-                New-AzureRmRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
+              If ($null -eq $roleAssignment) {
+                New-AzureRmRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId -verbose
               }
           }
       }
