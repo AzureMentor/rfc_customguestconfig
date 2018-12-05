@@ -6,6 +6,8 @@ variables:
   value: '1'
 - name: 'minor'
   value: '0'
+- name: 'configname'
+  value: 'passwordpolicy'
 
 trigger:
   branches:
@@ -28,19 +30,19 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: push
-    publishVstsFeed: 'Configurations'
+    publishVstsFeed: '2cc16164-1c2c-4d7a-a425-a4bcb97f17f0'
     allowPackageConflicts: true
 
 
-#- powershell: |
-#    $artifact = (Invoke-RestMethod -Method GET -Uri 'https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/builds/$(build.buildid)/artifacts?artifactName=customconfig&api-version=4.1').resource.downloadUrl
-#    $package = Invoke-WebRequest -Uri $artifact -Out '$(System.DefaultWorkingDirectory)\customconfig.zip'
-#    $hash = Get-FileHash '$(System.DefaultWorkingDirectory)\customconfig.zip' | ForEach-Object {$_.Hash}
-#    foreach ($path in @('$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json','$(Build.SourcesDirectory)\deploy.json')){
-#      (get-content "$path").replace('"contentUri": null,',"`"contentUri`": `"$artifact`",") | set-content "$path" -force
-#      (get-content "$path").replace('"contentHash": null,',"`"contentHash`": `"$hash`",") | set-content "$path" -force
-#    }
-#  displayName: 'Update content with artifact location'
+- powershell: |
+    $artifact = 'https://pkgs.dev.azure.com/azvmguestpolicy/_apis/packaging/feeds/2cc16164-1c2c-4d7a-a425-a4bcb97f17f0/nuget/packages/$(configname)/versions/$(major).$(minor).$buildid)/content'
+    $package = Invoke-WebRequest -Uri $artifact -Out '$(System.DefaultWorkingDirectory)\$(configname).$(major).$(minor).$buildid).nupkg'
+    $hash = Get-FileHash '$(System.DefaultWorkingDirectory)\$(configname).$(major).$(minor).$buildid).nupkg' | ForEach-Object {$_.Hash}
+    foreach ($path in @('$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json','$(Build.SourcesDirectory)\deploy.json')){
+      (get-content "$path").replace('"contentUri": null,',"`"contentUri`": `"$artifact`",") | set-content "$path" -force
+      (get-content "$path").replace('"contentHash": null,',"`"contentHash`": `"$hash`",") | set-content "$path" -force
+    }
+  displayName: 'Update content with artifact location'
 
 - powershell: |
     Update-Module 'AzureRM' -force
