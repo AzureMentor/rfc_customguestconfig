@@ -2,8 +2,10 @@ pool: 'Hosted VS2017'
 
 variables:
 - group: vmusers
-  major: '1'
-  minor: '0'
+- name: 'major'
+  value: '1'
+- name: 'minor'
+  value: '0'
 
 trigger:
   branches:
