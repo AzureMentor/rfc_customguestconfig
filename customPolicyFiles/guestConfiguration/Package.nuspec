@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PasswordPolicy</id>
+    <version>1.0.0</version>
+    <authors>microsoft</authors>
+    <owners>microsoft</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Microsoft/rfc_customguestconfig/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Microsoft/rfc_customguestconfig/</projectUrl>
+    <iconUrl>https://contosodev.blob.core.windows.net/img/GuestConfigurationIcon.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>theoretical example of how custom configurations could be packaged</description>
+    <releaseNotes>first draft</releaseNotes>
+    <copyright>2018</copyright>
+    <tags>customconfig</tags>
+  </metadata>
+</package>

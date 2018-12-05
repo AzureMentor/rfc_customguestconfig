@@ -1,4 +1,5 @@
-# Custom Guest Configuration Customer Collaborated Design
+# Custom Guest Configuration Request for Comments
+![Azure Guest Configuration](https://contosodev.blob.core.windows.net/img/GuestConfigurationIcon.jpg)
 
 [![Build Status](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/status/Microsoft.ccd_customguestconfig)](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_build/latest?definitionId=1)
 

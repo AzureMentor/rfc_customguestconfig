@@ -15,9 +15,11 @@ trigger:
     - .github/*
 
 steps:
-- powershell: |
-    Copy-Item -Path "$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\" -Destination "$(Build.ArtifactStagingDirectory)" -Recurse
-  displayName: 'Create custom configuration package'
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\'
+    versioningScheme: byBuildNumber
 
 - task: PublishBuildArtifacts@1
   inputs:
