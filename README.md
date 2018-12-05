@@ -1,7 +1,7 @@
 # Custom Guest Configuration Request for Comments
 ![Azure Guest Configuration](https://contosodev.blob.core.windows.net/img/GuestConfigurationIcon.jpg)
 
-[![Build Status](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/status/Microsoft.ccd_customguestconfig)](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_build/latest?definitionId=1)
+[![Build Status](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/status/Microsoft.rfc_customguestconfig?branchName=master)](https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_build/latest?definitionId=3?branchName=master)
 
 [![Deployment Gate Status](https://vsrm.dev.azure.com/azvmguestpolicy/_apis/public/Release/badge/8cf7364a-2490-4dd7-8353-5c7e17e8728d/1/1)](https://vsrm.dev.azure.com/azvmguestpolicy/_apis/public/Release/badge/8cf7364a-2490-4dd7-8353-5c7e17e8728d/1/1)
 
