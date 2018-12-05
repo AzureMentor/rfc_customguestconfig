@@ -22,24 +22,25 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: pack
-    packagesToPack: '$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\'
+    packagesToPack: '$(Build.SourcesDirectory)\customPolicyFiles\guestConfiguration\*.nuspec'
     versioningScheme: '$(major).$(minor).$(BuildID)'
 
-- task: PublishBuildArtifacts@1
+- task: NuGetCommand@2
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: customconfig
-  displayName: 'Publish package artifacts'
+    command: push
+    publishVstsFeed: 'Configurations'
+    allowPackageConflicts: true
 
-- powershell: |
-    $artifact = (Invoke-RestMethod -Method GET -Uri 'https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/builds/$(build.buildid)/artifacts?artifactName=customconfig&api-version=4.1').resource.downloadUrl
-    $package = Invoke-WebRequest -Uri $artifact -Out '$(System.DefaultWorkingDirectory)\customconfig.zip'
-    $hash = Get-FileHash '$(System.DefaultWorkingDirectory)\customconfig.zip' | ForEach-Object {$_.Hash}
-    foreach ($path in @('$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json','$(Build.SourcesDirectory)\deploy.json')){
-      (get-content "$path").replace('"contentUri": null,',"`"contentUri`": `"$artifact`",") | set-content "$path" -force
-      (get-content "$path").replace('"contentHash": null,',"`"contentHash`": `"$hash`",") | set-content "$path" -force
-    }
-  displayName: 'Update content with artifact location'
+
+#- powershell: |
+#    $artifact = (Invoke-RestMethod -Method GET -Uri 'https://dev.azure.com/azvmguestpolicy/CustomGuestConfiguration/_apis/build/builds/$(build.buildid)/artifacts?artifactName=customconfig&api-version=4.1').resource.downloadUrl
+#    $package = Invoke-WebRequest -Uri $artifact -Out '$(System.DefaultWorkingDirectory)\customconfig.zip'
+#    $hash = Get-FileHash '$(System.DefaultWorkingDirectory)\customconfig.zip' | ForEach-Object {$_.Hash}
+#    foreach ($path in @('$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json','$(Build.SourcesDirectory)\deploy.json')){
+#      (get-content "$path").replace('"contentUri": null,',"`"contentUri`": `"$artifact`",") | set-content "$path" -force
+#      (get-content "$path").replace('"contentHash": null,',"`"contentHash`": `"$hash`",") | set-content "$path" -force
+#    }
+#  displayName: 'Update content with artifact location'
 
 - powershell: |
     Update-Module 'AzureRM' -force
