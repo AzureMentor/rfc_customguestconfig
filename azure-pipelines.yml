@@ -166,7 +166,7 @@ steps:
   displayName: "Deploy virtual machine to Azure"
   inputs:
     azureSubscription: 'ARM'
-    resourceGroupName: $resourceGroup.Name
+    resourceGroupName: $(resourcegroup)
     type: 'Complete'
     location: 'eastus2'
     csmFile: deploy.json
