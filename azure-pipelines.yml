@@ -166,7 +166,7 @@ steps:
   displayName: "Deploy virtual machine to Azure"
   inputs:
     azureSubscription: 'ARM'
-    resourceGroupName: 'contosodev-ccd_customguestconfig'
+    resourceGroupName: $resourceGroup.Name
     type: 'Complete'
     location: 'eastus2'
     csmFile: deploy.json
