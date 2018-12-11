@@ -1,15 +1,7 @@
 {
     "if": {
-        "allOf": [
-            {
-                "field": "type",
-                "equals": "Microsoft.GuestConfiguration/guestConfigurationAssignments"
-            },
-            {
-                "field": "name",
-                "equals": "PasswordPolicy_msid121"
-            }
-        ]
+        "field": "type",
+        "equals": "Microsoft.Compute/virtualMachines/providers/guestConfigurationAssignments"
     },
     "then": {
         "effect": "auditIfNotExists",
