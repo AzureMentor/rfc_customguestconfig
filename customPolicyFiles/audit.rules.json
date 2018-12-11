@@ -37,7 +37,7 @@
             {
                 "allOf": [
                     {
-                        "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/name",
+                        "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/",
                         "equals": "PasswordPolicy_msid121"
                     },
                     {
