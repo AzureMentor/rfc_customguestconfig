@@ -33,18 +33,22 @@
                         ]
                     }
                 ]
+            },
+            {
+                "allOf": [
+                    {
+                        "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/name",
+                        "equals": "PasswordPolicy_msid121"
+                    },
+                    {
+                        "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/complianceStatus",
+                        "notEquals": "Compliant"
+                    }
+                ]
             }
         ]
     },
     "then": {
-        "effect": "auditIfNotExists",
-        "details": {
-            "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
-            "name": "PasswordPolicy_msid121",
-            "existenceCondition": {
-                "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/complianceStatus",
-                "equals": "Compliant"
-            }
-        }
+        "effect": "audit"
     }
 }
