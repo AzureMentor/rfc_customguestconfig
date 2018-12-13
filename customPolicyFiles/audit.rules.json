@@ -40,7 +40,7 @@
         "effect": "auditIfNotExists",
         "details": {
             "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
-            "name": "PasswordPolicy_msid121",
+            "name": "StorePasswordsUsingReversibleEncryption",
             "existenceCondition": {
                 "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/complianceStatus",
                 "equals": "Compliant"

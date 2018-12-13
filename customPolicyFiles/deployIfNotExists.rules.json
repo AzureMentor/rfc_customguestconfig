@@ -43,7 +43,7 @@
             "roleDefinitionIds": [
                 "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
             ],
-            "name": "PasswordPolicy_msid121",
+            "name": "StorePasswordsUsingReversibleEncryption",
             "deployment": {
                 "properties": {
                     "mode": "incremental",
@@ -55,7 +55,7 @@
                             "value": "[field('location')]"
                         },
                         "configurationName": {
-                            "value": "PasswordPolicy_msid121"
+                            "value": "StorePasswordsUsingReversibleEncryption"
                         }
                     },
                     "template": {
@@ -80,7 +80,7 @@
                             },
                             "configuration": {
                                 "kind": null,
-                                "name": "PasswordPolicy_msid121",
+                                "name": "StorePasswordsUsingReversibleEncryption",
                                 "version": "1.*",
                                 "contentUri": null,
                                 "contentHash": null,

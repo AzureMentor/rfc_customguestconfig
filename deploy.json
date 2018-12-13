@@ -37,7 +37,7 @@
         },
         "configuration": {
             "kind": null,
-            "name": "PasswordPolicy_msid121",
+            "name": "StorePasswordsUsingReversibleEncryption",
             "version": "1.*",
             "contentUri": null,
             "contentHash": null,
