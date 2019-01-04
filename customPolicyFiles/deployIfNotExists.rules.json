@@ -97,8 +97,9 @@
                                 "properties": {
                                     "guestConfiguration": {
                                         "name": "[variables('configuration').name]",
-                                        "version": "[variables('configuration').version]"
-                                        
+                                        "version": "[variables('configuration').version]",
+                                        "contentUri": "[variables('configuration').contentUri]",
+                                        "contentHash": "[variables('configuration').contentHash]"
                                     }
                                 }
                             },
