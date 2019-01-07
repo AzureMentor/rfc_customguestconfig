@@ -6,33 +6,8 @@
                 "equals": "Microsoft.Compute/virtualMachines"
             },
             {
-                "allOf": [
-                    {
-                        "field": "Microsoft.Compute/imagePublisher",
-                        "equals": "MicrosoftWindowsServer"
-                    },
-                    {
-                        "field": "Microsoft.Compute/imageOffer",
-                        "equals": "WindowsServer"
-                    },
-                    {
-                        "field": "Microsoft.Compute/imageSKU",
-                        "in": [
-                            "2008-R2-SP1",
-                            "2008-R2-SP1-smalldisk",
-                            "2012-Datacenter",
-                            "2012-Datacenter-smalldisk",
-                            "2012-R2-Datacenter",
-                            "2012-R2-Datacenter-smalldisk",
-                            "2016-Datacenter",
-                            "2016-Datacenter-Server-Core",
-                            "2016-Datacenter-Server-Core-smalldisk",
-                            "2016-Datacenter-smalldisk",
-                            "2016-Datacenter-with-Containers",
-                            "2016-Datacenter-with-RDSH"
-                        ]
-                    }
-                ]
+                "field": "Microsoft.Compute/imagePublisher",
+                "equals": "MicrosoftWindowsServer"
             }
         ]
     },
@@ -40,7 +15,7 @@
         "effect": "auditIfNotExists",
         "details": {
             "type": "Microsoft.GuestConfiguration/guestConfigurationAssignments",
-            "name": "StorePasswordsUsingReversibleEncryption",
+            "name": "PasswordPolicy_v0.2",
             "existenceCondition": {
                 "field": "Microsoft.GuestConfiguration/guestConfigurationAssignments/complianceStatus",
                 "equals": "Compliant"

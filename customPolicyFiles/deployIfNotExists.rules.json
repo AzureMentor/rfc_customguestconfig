@@ -6,33 +6,8 @@
                 "equals": "Microsoft.Compute/virtualMachines"
             },
             {
-                "allOf": [
-                    {
-                        "field": "Microsoft.Compute/imagePublisher",
-                        "equals": "MicrosoftWindowsServer"
-                    },
-                    {
-                        "field": "Microsoft.Compute/imageOffer",
-                        "equals": "WindowsServer"
-                    },
-                    {
-                        "field": "Microsoft.Compute/imageSKU",
-                        "in": [
-                            "2008-R2-SP1",
-                            "2008-R2-SP1-smalldisk",
-                            "2012-Datacenter",
-                            "2012-Datacenter-smalldisk",
-                            "2012-R2-Datacenter",
-                            "2012-R2-Datacenter-smalldisk",
-                            "2016-Datacenter",
-                            "2016-Datacenter-Server-Core",
-                            "2016-Datacenter-Server-Core-smalldisk",
-                            "2016-Datacenter-smalldisk",
-                            "2016-Datacenter-with-Containers",
-                            "2016-Datacenter-with-RDSH"
-                        ]
-                    }
-                ]
+                "field": "Microsoft.Compute/imagePublisher",
+                "equals": "MicrosoftWindowsServer"
             }
         ]
     },
@@ -43,7 +18,7 @@
             "roleDefinitionIds": [
                 "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
             ],
-            "name": "StorePasswordsUsingReversibleEncryption",
+            "name": "PasswordPolicy_v0.2",
             "deployment": {
                 "properties": {
                     "mode": "incremental",
@@ -55,7 +30,7 @@
                             "value": "[field('location')]"
                         },
                         "configurationName": {
-                            "value": "StorePasswordsUsingReversibleEncryption"
+                            "value": "PasswordPolicy_v0.2"
                         }
                     },
                     "template": {
@@ -80,7 +55,7 @@
                             },
                             "configuration": {
                                 "kind": null,
-                                "name": "StorePasswordsUsingReversibleEncryption",
+                                "name": "PasswordPolicy_v0.2",
                                 "version": "1.*",
                                 "contentUri": null,
                                 "contentHash": null,
