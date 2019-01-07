@@ -140,7 +140,7 @@
             "name": "[concat(variables('vmName'), '/', variables('extension').name)]",
             "location": "[resourceGroup().location]",            
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'),'/providers/Microsoft.GuestConfiguration/guestConfigurationAssignments/',variables('configuration').name)]"
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.GuestConfiguration",
