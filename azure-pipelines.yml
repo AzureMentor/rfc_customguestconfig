@@ -72,7 +72,7 @@ steps:
       write-host 'Creating deployifnotexists definition'
       $deployIfNotExists = @{
         Name           = '163804a7-0bb0-4c98-a888-e6393dc92389'
-        DisplayName    = '[RFC_CustomGuestConfig]: Deploy extension to audit storing passwords using reversible encryption'
+        DisplayName    = '[RFC_CustomGuestConfig]: Deploy extension to audit password settings'
         Description    = 'Custom Deploy if Not Exists rule to add VM extension, MSI, and guest assignment.'
         SubscriptionId = '$(SubscriptionID)'
         Mode           = 'Indexed'
@@ -90,7 +90,7 @@ steps:
     inline: |
       $auditIfNotExists = @{
         Name           = '3f6f3c70-1f39-4e6d-9ecc-8e1f377772f9'
-        DisplayName    = '[RFC_CustomGuestConfig]: Audit storing passwords using reversible encryption'
+        DisplayName    = '[RFC_CustomGuestConfig]: Audit password settings'
         Description    = 'Custom Audit if Not Exists rule.'
         SubscriptionId = '$(SubscriptionID)'
         Mode           = 'Indexed'
