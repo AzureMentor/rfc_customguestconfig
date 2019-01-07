@@ -71,7 +71,7 @@ steps:
     inline: |
       write-host 'Creating deployifnotexists definition'
       $deployIfNotExists = @{
-        Name           = '852a2bc9-9a15-446e-a19b-d5b29e60a52a'
+        Name           = '163804a7-0bb0-4c98-a888-e6393dc92389'
         DisplayName    = '[RFC_CustomGuestConfig]: Deploy extension to audit storing passwords using reversible encryption'
         Description    = 'Custom Deploy if Not Exists rule to add VM extension, MSI, and guest assignment.'
         SubscriptionId = '$(SubscriptionID)'
@@ -110,7 +110,7 @@ steps:
       (get-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json').replace('subscriptionID','$(subscriptionID)') | set-content '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json' -force
 
       $policySet = @{
-        Name             = 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
+        Name             = '62f70032-c579-42ce-9ced-2e49c8f89194'
         DisplayName      = '[RFC_CustomGuestConfig]: Onboard and Audit custom guest configuration'
         Description      = 'CD/CD solution for custom guest config validation.'
         SubscriptionId   = '$(SubscriptionID)'
@@ -126,11 +126,11 @@ steps:
     azurePowerShellVersion: 'latestVersion'
     scriptType: 'inlineScript'
     inline: |      
-      $initiative = Get-AzureRmPolicySetDefinition -Name 'cd77b2bc-4d28-4321-975a-0d3f95ed2b56'
+      $initiative = Get-AzureRmPolicySetDefinition -Name '62f70032-c579-42ce-9ced-2e49c8f89194'
       $ResourceGroup = Get-AzureRmResourceGroup -Name $(resourcegroup) -ErrorAction SilentlyContinue
       
       $assignment = @{
-        Name = '0d39c29a-135f-4137-b6a8-bcabea6095bb'
+        Name = '8c17a7d8-6071-470d-a023-2776f207f296'
         DisplayName = '[RFC_CustomGuestConfig]: Functional validation for custom guest configuration'
         Description = 'Assigns an initiative that includes both the deploy and audit policies required for a custom guest configuration'
         PolicySetDefinition = $initiative
