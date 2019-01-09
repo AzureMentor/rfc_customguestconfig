@@ -79,7 +79,7 @@ steps:
         Policy         = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.rules.json"
         Metadata       = "$(Build.SourcesDirectory)\customPolicyFiles\deployIfNotExists.metadata.json"
         }
-      $deployDef = New-AzureRMPolicyDefinition @deployIfNotExists -verbose
+      $deployDef = New-AzureRMPolicyDefinition @deployIfNotExists
 
 - task: AzurePowerShell@3
   displayName: 'Publish audit definition'
@@ -97,7 +97,7 @@ steps:
         Policy         = "$(Build.SourcesDirectory)\customPolicyFiles\audit.rules.json"
         Metadata       = "$(Build.SourcesDirectory)\customPolicyFiles\audit.metadata.json"
         }
-      $auditDef = New-AzureRMPolicyDefinition @auditIfNotExists -verbose
+      $auditDef = New-AzureRMPolicyDefinition @auditIfNotExists
 
 - task: AzurePowerShell@3
   displayName: 'Publish initiative definition'
@@ -117,7 +117,7 @@ steps:
         PolicyDefinition = '$(Build.SourcesDirectory)\customPolicyFiles\initiative.rules.json'
         Metadata         = '$(Build.SourcesDirectory)\customPolicyFiles\initiative.metadata.json'
       }
-      $setDef = New-AzureRmPolicySetDefinition @policySet -verbose
+      $setDef = New-AzureRmPolicySetDefinition @policySet
 
 - task: AzurePowerShell@3
   displayName: 'Assign initiative to resource group'
@@ -127,7 +127,7 @@ steps:
     scriptType: 'inlineScript'
     inline: |      
       $initiative = Get-AzureRmPolicySetDefinition -Name '62f70032-c579-42ce-9ced-2e49c8f89194'
-      $ResourceGroup = Get-AzureRmResourceGroup -Name $(resourcegroup) -ErrorAction SilentlyContinue
+      $ResourceGroup = Get-AzureRmResourceGroup -Name $(resourcegroup)
       
       $assignment = @{
         Name = '8c17a7d8-6071-470d-a023-2776f207f296'
@@ -138,7 +138,7 @@ steps:
         Location = 'eastus2'
         AssignIdentity = $true
       }
-      $assignment = New-AzureRmPolicyAssignment @assignment -verbose
+      $assignment = New-AzureRmPolicyAssignment @assignment
 
       # Hold for directory replication
       Start-sleep 60
@@ -152,7 +152,7 @@ steps:
               $roleDefId = $_.Split("/") | Select-Object -Last 1
               $roleAssignment = Get-AzureRMRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
               If ($null -eq $roleAssignment) {
-                New-AzureRmRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId -verbose
+                New-AzureRmRoleAssignment -Scope $ResourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
               }
           }
       }
