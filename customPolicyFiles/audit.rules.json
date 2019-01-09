@@ -1,16 +1,18 @@
 {
     "if": {
-        "anyOf": [
-            {
-                "field": "type",
-                "equals": "Microsoft.Compute/virtualMachines"
-            },
-            {
-                "field": "Microsoft.Compute/imagePublisher",
-                "equals": "MicrosoftWindowsServer"
-            }
-        ],
         "allOf": [
+            {
+                "anyOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Compute/virtualMachines"
+                    },
+                    {
+                        "field": "Microsoft.Compute/imagePublisher",
+                        "equals": "MicrosoftWindowsServer"
+                    }
+                ]
+            },
             {
                 "field": "Microsoft.Compute/imagePublisher",
                 "equals": "MicrosoftWindowsServer"
