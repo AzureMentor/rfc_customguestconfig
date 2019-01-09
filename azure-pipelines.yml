@@ -141,7 +141,7 @@ steps:
       $assignment = New-AzureRmPolicyAssignment @assignment -verbose
 
       # Hold for directory replication
-      Start-sleep 60
+      Start-sleep 120
 
 - task: AzurePowerShell@3
   displayName: 'Create role assignment'
@@ -153,7 +153,7 @@ steps:
       $deployDef = Get-AzureRmPolicyDefinition -Name '163804a7-0bb0-4c98-a888-e6393dc92389'
       $roleDefinitionIds = $deployDef.Properties.policyRule.then.details.roleDefinitionIds
       $esourceGroup = Get-AzureRmResourceGroup -Name $(resourcegroup) -ErrorAction SilentlyContinue
-      $assignment = Get-AzureRMPolicyAssignment -Name '8c17a7d8-6071-470d-a023-2776f207f296'
+      $assignment = Get-AzureRmPolicyAssignment -Name '8c17a7d8-6071-470d-a023-2776f207f296'
 
       if ($roleDefinitionIds.Count -gt 0)
       {
