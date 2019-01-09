@@ -8,8 +8,8 @@
                         "equals": "Microsoft.Compute/virtualMachines"
                     },
                     {
-                        "field": "Microsoft.Compute/imagePublisher",
-                        "equals": "MicrosoftWindowsServer"
+                        "field": "type",
+                        "equals": "Microsoft.Compute/virtualMachineScaleSets"
                     }
                 ]
             },
