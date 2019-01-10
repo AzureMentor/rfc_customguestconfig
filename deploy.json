@@ -156,7 +156,7 @@
             "location": "[resourceGroup().location]",
             "apiVersion": "2017-12-01",
             "sku": {
-                "sku": "[variables('imageSKU')]",
+                "name": "[variables('imageSKU')]",
                 "capacity": "5"
             },
             "properties": {
