@@ -146,17 +146,16 @@ steps:
       $deployDef = Get-AzureRmPolicyDefinition -Name '163804a7-0bb0-4c98-a888-e6393dc92389'
       $roleDefinitionIds = $deployDef.Properties.policyRule.then.details.roleDefinitionIds
 
-      if ($roleDefinitionIds.Count -gt 0)
-      {
-          $roleDefinitionIds | ForEach-Object {
-              $roleDefId = $_.Split("/") | Select-Object -Last 1
-              $roleAssignment = Get-AzureRMRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
-              If ($null -eq $roleAssignment) {
-                New-AzureRmRoleAssignment -Scope $ResourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
-              }
-          }
-      }
-      
+      #if ($roleDefinitionIds.Count -gt 0)
+      #{
+      #    $roleDefinitionIds | ForEach-Object {
+      #        $roleDefId = $_.Split("/") | Select-Object -Last 1
+      #        $roleAssignment = Get-AzureRMRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
+      #        If ($null -eq $roleAssignment) {
+      #          New-AzureRmRoleAssignment -Scope $ResourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
+      #        }
+      #    }
+      #}
 
 - task: AzureResourceGroupDeployment@2
   displayName: "Deploy virtual machine to Azure"
