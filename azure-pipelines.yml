@@ -150,7 +150,7 @@ steps:
       {
           $roleDefinitionIds | ForEach-Object {
               $roleDefId = $_.Split("/") | Select-Object -Last 1
-              $roleAssignment = Get-AzureRMRoleAssignment -Scope $resourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
+              #$roleAssignment = Get-AzureRMRoleAssignment -Scope $ResourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
               #If ($null -eq $roleAssignment) {
               #  New-AzureRmRoleAssignment -Scope $ResourceGroup.ResourceId -ObjectId $assignment.Identity.PrincipalId -RoleDefinitionId $roleDefId
               #}
